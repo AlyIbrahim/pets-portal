@@ -74,7 +74,7 @@ const Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   const response = fetch(animals_service + "animals/").then((data) => data.json());
   response.then((data) => set_store_value(pets, $pets = data, $pets)).catch((error) => console.log(error));
   $$unsubscribe_pets();
-  return `<h1>Welcome to SvelteKit</h1>
+  return `<h1>Welcome to Pets Portal</h1>
 ${validate_component(InputForm, "InputForm").$$render($$result, {}, {}, {})}
 
 ${function(__value) {

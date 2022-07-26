@@ -14,7 +14,7 @@
 	}
 </script>
 
-<h1>Welcome to SvelteKit</h1>
+<h1>Welcome to Pets Portal</h1>
 <InputForm on:newAnimal={handleNewAnimal} />
 
 {#await response}
