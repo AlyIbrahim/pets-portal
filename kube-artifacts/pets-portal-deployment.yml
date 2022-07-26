@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pets-portal
+  namespace: NAMESPACE
+  labels:
+    app: pets-portal
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pets-portal
+  template:
+    metadata:
+      labels:
+        app: pets-portal
+    spec:
+      containers:
+      - name: pets-portal
+        image: 864674129776.dkr.ecr.us-east-1.amazonaws.com/pets-portal:codebuild
+        ports:
+        - containerPort: 8080

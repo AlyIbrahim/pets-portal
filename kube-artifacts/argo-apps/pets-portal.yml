@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: TENANT-pets-portal
+spec:
+  destination:
+    name: ''
+    namespace: TENANT
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://alyibrahim.github.io/helm-repo'
+    targetRevision: 0.1.0
+    chart: pets-portal
+    helm:
+      parameters:
+        - name: replicaCount
+          value: "2"
+        - name: service.type
+          value: ClusterIP
+#        - name: apis[0].name
+#          value: animals
+#        - name: apis[0].host
+#          value: ANIMALS_API_HOST
+#        - name: apis[0].port
+#          value: 8080
+        - name: ingress.enabled
+          value: "true"
+        - name: ingress.baseDomain
+          value: BASE_DOMAIN
+        - name: ingress.tls.enabled
+          value: "true"
+        - name: ingress.tls.issuer
+          value: ISSUER
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PreserveResourcesOnDeletion=false
+

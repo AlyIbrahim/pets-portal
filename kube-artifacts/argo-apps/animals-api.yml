@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: TENANT-animals-api
+spec:
+  destination:
+    name: ''
+    namespace: TENANT
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://alyibrahim.github.io/helm-repo'
+    targetRevision: 0.1.0
+    chart: animals-api
+    helm:
+      parameters:
+        - name: replicaCount
+          value: '2'
+        - name: db.host
+          value: DBHOST
+        - name: db.dbName
+          value: DBNAME
+        - name: db.dbUser
+          value: DBUSER
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PreserveResourcesOnDeletion=false
+

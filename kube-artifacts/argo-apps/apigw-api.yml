@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: TENANT-apigw-api
+spec:
+  destination:
+    name: ''
+    namespace: TENANT
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://alyibrahim.github.io/helm-repo'
+    targetRevision: 0.1.0
+    chart: apigw-api
+    helm:
+      parameters:
+        - name: replicaCount
+          value: '2'
+        - name: apis[0].name
+          value: animals
+        - name: apis[0].url
+          value: ANIMALS_API_URL:8080
+        - name: authorizer.userPoolId
+          value: USER_POOL_ID
+        - name: authorizer.clientId
+          value: WEB_CLIENT_ID
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PreserveResourcesOnDeletion=false
