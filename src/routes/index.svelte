@@ -3,8 +3,9 @@
 	import Table from '$lib/Table.svelte';
 	import { pets } from '../store';
 	const animals_service = `${import.meta.env.VITE_ANIMALS_SERVICE}`;
+	console.log(animals_service);
 	console.log('getAnimals');
-	const response = fetch(animals_service + 'animals/').then((data) => data.json());
+	const response = fetch(animals_service).then((data) => data.json()).catch((error) => console.log(error));
 	response.then((data) => $pets = data).catch((error) => console.log(error))
 	// response.then((data) => mypets = data)
 	function handleNewAnimal(animal) {

@@ -10,7 +10,7 @@
 
 	async function AddAnimal() {
 		// console.log(animals_service);
-		let response = await fetch(animals_service + 'animals/', {
+		let response = await fetch(animals_service, {
 			method: 'POST',
 			headers: new Headers([['Content-Type', 'application/json']]),
 			body: JSON.stringify({ name, type, age })

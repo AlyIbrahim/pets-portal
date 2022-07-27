@@ -69,9 +69,10 @@ const pets = writable([]);
 const Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $pets, $$unsubscribe_pets;
   $$unsubscribe_pets = subscribe(pets, (value) => $pets = value);
-  const animals_service = `${"http://localhost:8080/"}`;
+  const animals_service = `${"/animals/"}`;
+  console.log(animals_service);
   console.log("getAnimals");
-  const response = fetch(animals_service + "animals/").then((data) => data.json());
+  const response = fetch(animals_service).then((data) => data.json()).catch((error) => console.log(error));
   response.then((data) => set_store_value(pets, $pets = data, $pets)).catch((error) => console.log(error));
   $$unsubscribe_pets();
   return `<h1>Welcome to Pets Portal</h1>

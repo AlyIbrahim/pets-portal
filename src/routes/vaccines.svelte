@@ -1,6 +1,7 @@
 <script>
 	import Table from '$lib/Table.svelte';
 	const vaccines_service = `${import.meta.env.VITE_VACCINES_SERVICE}`;
+	console.log(vaccines_service)
 	const response = fetch(vaccines_service).then((data) => data.json());
 </script>
 
