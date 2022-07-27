@@ -16,6 +16,8 @@ spec:
     chart: pets-portal
     helm:
       parameters:
+        - name: image.tag
+          value: VERSION_TAG
         - name: replicaCount
           value: "2"
         - name: service.type
